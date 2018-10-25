@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import passport from 'passport';
+import * as passportSetup from '../config/passport-setup'
 // import mongoose from 'mongoose';
 // import bodyParser from 'body-parser';
 // import jwt from 'jsonwebtoken';
@@ -16,8 +18,13 @@ api.get('/login', (req,res) => {
 });
 
 //auth with google
-api.get('/google', (req,res) => {
-  res.send('Login with Google');
+api.get('/google', passport.authenticate('google', {
+  scope: ['profile']
+}));
+
+//Callback for Google
+api.get('/google/redirect', (req,res) => {
+  res.render('Google Redirect');
 });
 
 //auth logout

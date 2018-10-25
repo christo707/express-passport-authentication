@@ -4,8 +4,9 @@ import keys from './keys';
 
 passport.use(
   new GoogleStrategy({
+  callbackURL: '/api/auth/google/redirect',
   clientID: keys.google.clientID,
   clientSecret: keys.google.clientSecret
-}), () => {
+}, () => {
   //callback function
-})
+}))
