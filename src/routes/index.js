@@ -1,9 +1,13 @@
 import express from 'express';
 import auth from '../controller/auth';
-//import initializeDb from '../db';
+import initializeDb from '../db';
 //import middleware from '../middleware';
 
 let router = express();
+
+// connect to db
+initializeDb(db => {
+
 
   // api routes v1 (/v1)
   let r = express.Router();
@@ -15,5 +19,6 @@ let router = express();
   });
 
   router.use('/auth', auth());
+});
 
 export default router;

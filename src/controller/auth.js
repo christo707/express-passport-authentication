@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import passport from 'passport';
-import * as passportSetup from '../config/passport-setup'
-// import mongoose from 'mongoose';
-// import bodyParser from 'body-parser';
-// import jwt from 'jsonwebtoken';
+import googleauth from './authenticators/google';
+//import initializeDb from '../db';
+//import middleware from '../middleware';
 
 export default () => {
   let api = Router();
@@ -17,15 +16,7 @@ api.get('/login', (req,res) => {
   res.render('login');
 });
 
-//auth with google
-api.get('/google', passport.authenticate('google', {
-  scope: ['profile']
-}));
-
-//Callback for Google
-api.get('/google/redirect', (req,res) => {
-  res.render('Google Redirect');
-});
+api.use('/google', googleauth());
 
 //auth logout
 api.get('/logout', (req,res) => {
