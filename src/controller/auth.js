@@ -13,14 +13,15 @@ api.get('/', (req, res) => {
 
 //auth google
 api.get('/login', (req,res) => {
-  res.render('login');
+  res.render('login', { user: req.user});
 });
 
 api.use('/google', googleauth());
 
 //auth logout
 api.get('/logout', (req,res) => {
-  res.send('Logging Out!!!');
+  req.logout();
+  req.redirect('/api/auth/login');
 });
 
   return api;

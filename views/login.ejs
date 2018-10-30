@@ -48,10 +48,20 @@
     <body>
         <nav>
             <ul>
-                <li><a href="/api/auth/logout">Logout</a></li>
-                <li><a href="/api/auth/login">Login</a></li>
-                <li><a href="/">Homepage</a></li>
+              <% if (user) { %>
+              <li><a href="/api/auth/logout">Log out</a></li>
+              <% } else { %>
+              <li><a href="/api/auth/login">Login</a></li>
+              <% } %>
+              <li><a href="/">Homepage</a></li>
+              <li><a href="/api/profile">Profile</a></li>
             </ul>
+            <% if (user) { %>
+            <ul class="right">
+              <li><%= user.username %></li>
+              <li><img src="<%= user.thumbnail %>"></li>
+            </ul>
+              <% } %>
         </nav>
         <header>
             <h1>Login using...</h1>

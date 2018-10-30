@@ -2,8 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>OAuth Express</title>
-        <link rel="shortcut icon" type="image/x-icon" href="/icon.ico" />
+        <title>Homepage</title>
         <style>
             body{
                 font-family: arial;
@@ -37,32 +36,40 @@
                 padding: 0 10px;
                 color: #333;
             }
+            main img{
+                width: 40px;
+                margin-right: 10px;
+                position: relative;
+                top: 12px;
+            }
+            main p{
+                display: inline-block;
+            }
         </style>
     </head>
     <body>
         <nav>
-          <ul>
-            <% if (user) { %>
-            <li><a href="/api/auth/logout">Log out</a></li>
-            <% } else { %>
-            <li><a href="/api/auth/login">Login</a></li>
-            <% } %>
-            <li><a href="/">Homepage</a></li>
-            <li><a href="/api/profile">Profile</a></li>
+            <ul>
+                <% if (user) { %>
+                <li><a href="/api/auth/logout">Log out</a></li>
+                <% } else { %>
+                <li><a href="/api/auth/login">Login</a></li>
+                <% } %>
+                <li><a href="/">Homepage</a></li>
+                <li><a href="/api/profile">Profile</a></li>
+            </ul>
             <% if (user) { %>
             <ul class="right">
               <li><%= user.username %></li>
               <li><img src="<%= user.thumbnail %>"></li>
             </ul>
               <% } %>
-         </ul>
         </nav>
         <header>
-            <h1>Express Passport OAuth</h1>
-            <h2>Homepage</h2>
+            <h1>Welcome to your profile, <%= user.username %></h1>
         </header>
         <main>
-            <p>Login Authentication Curuiosity</p>
+
         </main>
     </body>
 </html>

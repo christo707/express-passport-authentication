@@ -2,7 +2,7 @@ import { Router } from 'express';
 import passport from 'passport';
 import mongoose from 'mongoose';
 import * as passportSetup from '../../config/google-passport-setup';
-import Account from '../../model/account';
+
 
 export default () => {
   let api = Router();
@@ -14,7 +14,7 @@ api.get('/', passport.authenticate('google', {
 
 //Callback for Google
 api.get('/redirect', passport.authenticate('google'), (req,res) => {
-  res.render('Google Redirect');
+  res.redirect('/api/profile');
 });
 
   return api;

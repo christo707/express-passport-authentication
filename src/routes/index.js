@@ -1,5 +1,6 @@
 import express from 'express';
 import auth from '../controller/auth';
+import profile from '../controller/profile';
 import initializeDb from '../db';
 //import middleware from '../middleware';
 
@@ -19,6 +20,7 @@ initializeDb(db => {
   });
 
   router.use('/auth', auth());
+  router.use('/profile', profile());
 });
 
 export default router;

@@ -7,8 +7,9 @@ let Account = new Schema({
   socialId: String,
   provider: {
         type:String,
-        required: true
+        required: true,
     },
+  thumbnail: String
   // email: {
   //       type:String,
   //       required: true,
