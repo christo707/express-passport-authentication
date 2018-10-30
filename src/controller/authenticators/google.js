@@ -9,7 +9,7 @@ export default () => {
 
 //auth with google
 api.get('/', passport.authenticate('google', {
-  scope: ['profile']
+  scope: ['profile', 'email']
 }));
 
 //Callback for Google

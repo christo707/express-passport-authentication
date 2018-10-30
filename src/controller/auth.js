@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import googleauth from './authenticators/google';
+import githubauth from './authenticators/github';
 //import initializeDb from '../db';
 //import middleware from '../middleware';
 
@@ -17,6 +18,7 @@ api.get('/login', (req,res) => {
 });
 
 api.use('/google', googleauth());
+api.use('/github', githubauth());
 
 //auth logout
 api.get('/logout', (req,res) => {

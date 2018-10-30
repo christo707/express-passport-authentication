@@ -5,12 +5,18 @@ import config from './config';
 import cookieSession from 'cookie-session';
 import keys from './config/keys';
 import passport from 'passport';
+import bodyParser from 'body-parser';
 
 let app = express();
 //app.server = http.createServer(app);
 
 //View Engine
 app.set("view engine", 'ejs');
+
+//Body Parser
+app.use(bodyParser.json({
+  limit : config.bodyLimit
+}));
 
 // Set up Cookie session
 app.use(cookieSession({
@@ -37,5 +43,5 @@ console.log("| |  | |  .--.  ||  '--'.'|  |`.  `-.  |  |  |  | |  | ");
 console.log("| '--'\\|  |  |  ||  | \\  \\|  |.-'    | |  |  '  '-'  ' ");
 console.log(" -----'`--'  `--'`--' `--'`--'`-----'  `--'   `-----'  ");
 console.log();
-console.log("Server Started on port " + config.port );
+console.log("Server Listening on port " + config.port );
 });
