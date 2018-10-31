@@ -6,18 +6,13 @@ import * as passportSetup from '../../config/github-passport-setup';
 export default () => {
   let api = Router();
 
-//auth with google
+//auth with GitHub
 api.get('/', passport.authenticate('github', {
   scope: ['user']
 }));
 
 //Callback for GitHub
 api.get('/redirect', passport.authenticate('github'), (req,res) => {
-  res.send('GitHub');
-  //res.redirect('/api/profile');
-});
-
-api.get('/redirect1', (req,res) => {
   res.send('GitHub');
   //res.redirect('/api/profile');
 });

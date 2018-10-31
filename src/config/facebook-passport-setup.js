@@ -4,12 +4,12 @@ import keys from './keys';
 import * as serialize from './serialize';
 
 passport.use(
-  new GitHubStrategy({
+  new FacebookStrategy({
   callbackURL: '/api/auth/facebook/redirect',
   clientID: keys.facebook.clientID,
   clientSecret: keys.facebook.clientSecret
 }, (accessToken, refreshToken, profile, done) => {
-  console.log("Github Authentication completed");
+  console.log("Facebook Authentication completed");
   console.log(profile);
   // Account.findOne({socialId: profile.id}).then((currentAccount) => {
   //   if(currentAccount){

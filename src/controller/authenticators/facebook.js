@@ -6,7 +6,7 @@ import * as passportSetup from '../../config/facebook-passport-setup';
 export default () => {
   let api = Router();
 
-//auth with google
+//auth with FaceBook
 api.get('/', passport.authenticate('facebook', {
   scope: ['public_profile','email']
 }));

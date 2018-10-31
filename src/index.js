@@ -10,6 +10,9 @@ import bodyParser from 'body-parser';
 let app = express();
 //app.server = http.createServer(app);
 
+//public files
+app.use(express.static('public'));
+
 //View Engine
 app.set("view engine", 'ejs');
 

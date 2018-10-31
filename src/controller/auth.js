@@ -13,11 +13,15 @@ api.get('/', (req, res) => {
   res.send("Auth is UP!!!");
 });
 
-//auth google
 api.get('/login', (req,res) => {
   res.render('login', { user: req.user});
 });
 
+api.get('/register', (req,res) => {
+  res.render('register', { user: req.user});
+});
+
+//auth google
 api.use('/google', googleauth());
 api.use('/github', githubauth());
 api.use('/facebook', facebookauth());
