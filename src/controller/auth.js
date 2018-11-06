@@ -30,7 +30,7 @@ api.use('/linkedin', facebookauth());
 //auth logout
 api.get('/logout', (req,res) => {
   req.logout();
-  req.redirect('/api/auth/login');
+  res.redirect('/api/auth/login');
 });
 
   return api;

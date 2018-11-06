@@ -61,13 +61,15 @@
             </ul>
             <% if (user) { %>
             <ul class="right">
-              <li><%= user.username %></li>
+              <li><%= user.displayname %></li>
               <li><img src="<%= user.thumbnail %>"></li>
             </ul>
               <% } %>
         </nav>
         <header>
-            <h1>Welcome to your profile, <%= user.username %></h1>
+            <h1>Welcome to your profile, <%= user.displayname %></h1>
+            <br>
+            <h2>Email: <%= user.email%></h2>
         </header>
         <main>
 

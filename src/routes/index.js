@@ -9,7 +9,6 @@ let router = express();
 // connect to db
 initializeDb(db => {
 
-
   // api routes v1 (/v1)
   let r = express.Router();
   router.use('/', r);
