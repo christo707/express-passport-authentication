@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 let User = new Schema({
-  diaplayname: String,
+  displayname: String,
   gender: String,
   thumbnail: String,
   email: {

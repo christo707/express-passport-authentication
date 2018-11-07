@@ -20,6 +20,7 @@ app.set("view engine", 'ejs');
 app.use(bodyParser.json({
   limit : config.bodyLimit
 }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Set up Cookie session
 app.use(cookieSession({

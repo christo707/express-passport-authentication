@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -s -D -d dist --presets env,stage-0",
     "prestart": "npm run -s build",
-    "dev": "NODE_ENV=development  nodemon -w src --exec \"babel-node src/index --presets env,stage-0\"",
-    "start": "npm run -s build && NODE_ENV=production  nodemon start dist"
+    "dev": "SET NODE_ENV=development && nodemon -w src --exec \"babel-node src/index --presets env,stage-0\"",
+    "start": "npm run -s build && SET NODE_ENV=production && nodemon start dist"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/christo707/express-passport-authentication#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cookie-session": "^2.0.0-beta.3",
     "ejs": "^2.6.1",

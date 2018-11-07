@@ -35,7 +35,7 @@ passport.use(
       account.email = profile.emails[0].value;
       account.save().then((acc) => {
         console.log("New Account Created: " + acc);
-        User.findOne({email: profile.emails.value}).then((user) => {
+        User.findOne({email: profile.emails[0].value}).then((user) => {
             if(user){
               let currentUser = {account: acc, user: user}
               done(null, currentUser);

@@ -3,6 +3,7 @@ import passport from 'passport';
 import googleauth from './authenticators/google';
 import facebookauth from './authenticators/facebook';
 import githubauth from './authenticators/github';
+import localauth from './authenticators/local';
 //import initializeDb from '../db';
 //import middleware from '../middleware';
 
@@ -14,11 +15,11 @@ api.get('/', (req, res) => {
 });
 
 api.get('/login', (req,res) => {
-  res.render('login', { user: req.user});
+  res.render('login', { user: req.user, msg: '' });
 });
 
 api.get('/register', (req,res) => {
-  res.render('register', { user: req.user});
+  res.render('register', { user: req.user, msg: ''});
 });
 
 //auth google
@@ -26,6 +27,7 @@ api.use('/google', googleauth());
 api.use('/github', githubauth());
 api.use('/facebook', facebookauth());
 api.use('/linkedin', facebookauth());
+api.use('/local', localauth());
 
 //auth logout
 api.get('/logout', (req,res) => {
