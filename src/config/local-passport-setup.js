@@ -2,33 +2,62 @@ import passport from 'passport';
 const LocalStrategy   = require('passport-local').Strategy;
 import keys from './keys';
 import * as serialize from './serialize';
+import Account from '../model/account';
+import User from '../model/user';
 
-passport.use(
-  new GitHubStrategy({
-  callbackURL: '/api/auth/github/redirect',
-  clientID: keys.github.clientID,
-  clientSecret: keys.github.clientSecret
-}, (accessToken, refreshToken, profile, done) => {
-  console.log("Github Authentication completed");
-  console.log(profile);
-  // Account.findOne({socialId: profile.id}).then((currentAccount) => {
-  //   if(currentAccount){
-  //     //User already exist
-  //     done(null, currentAccount);
-  //   } else {
-  //     //Creating New User
-  //     let account = new Account();
-  //     account.displayname = profile.displayName;
-  //     account.socialId = profile.id;
-  //     account.provider = 'google';
-  //     account.thumbnail = profile._json.image.url;
-  //     account.save().then((user) => {
-  //       console.log("New User Created: " + user);
-  //       done(null, user);
-  //     }, (err) => {
-  //       console.log("Err in creating user" + err);
-  //     })
-  //   }
-  // })
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+}, (username, password, done) => {
+  console.log("In callback");
 
-}))
+  Account.findOne({provider: 'local', email: username}).then((currentAccount) => {
+    if(currentAccount){
+      //User already exist
+      let account = new Account();
+      let check = account.validPassword(password, currentAccount.password);
+      if(check == true){
+
+        User.findOne({email: username}).then((user) => {
+            if(user){
+              console.log('User found');
+              let currentUser = {account: currentAccount, user: user};
+              console.log("");
+              done(null, currentUser);
+            } else {
+              console.log("Account Present but User not present");
+              done(null , false, {
+                msg: 'Account available but User not present'
+              });
+            }
+        }, (err) => {
+          console.log("Error in fetching user details for Local account " + err);
+          done(null , false, {
+            msg: 'Server Error'
+          });
+        })
+
+      }else {
+        done(null , false, {
+          msg: 'Wrong Password'
+        });
+      }
+
+    } else {
+      console.log("User doesnot exist");
+      done(null , false, {
+        msg: 'User doesnot exist'
+      });
+    }
+  }, (err) => {
+    console.log("Error in fetching account" + err);
+    done(null , false, {
+      msg: 'Server Error'
+    });
+  })
+
+
+
+})
+
+)

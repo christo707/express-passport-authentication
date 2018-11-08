@@ -2,9 +2,14 @@ import passport from 'passport';
 import Account from '../model/account';
 import User from '../model/user';
 
-passport.serializeUser((account, done) => {
-  console.log("Serializing: " + account);
-  done(null, account.account.id);
+passport.serializeUser((currentUser, done) => {
+  console.log("Serializing: " + currentUser);
+  if(currentUser.account){
+  done(null, account.account.id); //done(error, userdocument)
+  }
+  else {
+    done(null, false);
+  }
 });
 
 passport.deserializeUser((id, done) => {

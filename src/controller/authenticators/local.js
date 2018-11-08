@@ -1,22 +1,31 @@
 import { Router } from 'express';
 import passport from 'passport';
 import mongoose from 'mongoose';
-import * as passportSetup from '../../config/github-passport-setup';
+import * as passportSetup from '../../config/local-passport-setup';
 import Account from '../../model/account';
 import User from '../../model/user';
 
 export default () => {
   let api = Router();
 
-//auth with GitHub
-// api.get('/', passport.authenticate('github', {
-//   scope: ['user']
-// }));
-
 //login with local
-api.post('/login', (req, res) => {
-  console.log("Login Body:  "+ JSON.stringify(req.body));
-});
+api.post('/login', (req, res, next) => {
+    console.log("In redirect");
+    console.log('In Local Login');
+    //res.redirect('/api/profile');
+    passport.authenticate('local', {                         //passort.authenticate('strategy', properties, callback)
+      failureRedirect: '/api/auth/login',
+      successRedirect: '/api/profile'
+    },(err, user, info) => {
+      if(err && !user) {
+        res.render('login', { user: req.user, msg: 'Server Error'});
+      }
+      if(info && info.msg){
+        res.render('login', { user: req.user, msg: info.msg});
+      }
+    })(req, res, next);
+  });
+
 
 //SignUp with Local
 api.post('/register', (req, res) => {
@@ -80,12 +89,6 @@ api.post('/register', (req, res) => {
   })
 });
 
-
-//Callback for GitHub
-// api.get('/redirect', passport.authenticate('github'), (req,res) => {
-//   res.send('GitHub');
-//   //res.redirect('/api/profile');
-// });
 
   return api;
 }

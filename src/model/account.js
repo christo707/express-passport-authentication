@@ -18,6 +18,7 @@ Account.methods.generateHash = (password) => {
   var salt = bcrypt.genSaltSync(10);
   var hash = bcrypt.hashSync(password, salt);
   return hash;
+// For async
 //   bcrypt.genSalt(10, (err, salt) => {
 //     console.log("Salt: " + salt);
 //     bcrypt.hash(password, salt, (err, hash) => {
@@ -28,8 +29,9 @@ Account.methods.generateHash = (password) => {
 };
 
 // checking if password is valid
-Account.methods.validPassword = function(password, hash) {
+Account.methods.validPassword = (password, hash) => {
   return bcrypt.compareSync(password, hash);
+  // For sync
   // bcrypt.compare(password, hash).then((res) => {
   //  return res;
   // });
